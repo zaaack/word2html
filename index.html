@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>word转html助手</title>
+    <link rel="shortcut icon" href="img/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="js/clipboard.min.js"></script>
+    <script src="js/creat_html.js"></script>
+    <script src="js/FileSaver.js"></script>
+  </head>
+  <style>
+    #preview {
+      display: none;
+    }
+    #preview article {
+      width: 950px;
+      margin: 50px auto
+    }
+    #preview article img {
+      max-width: 100%;
+    }
+    body.preview-mode #home {
+      display: none;
+    }
+    body.preview-mode #preview {
+      display: block;
+    }
+    .close {
+      position: fixed;
+      right: 50px;
+      top: 50px;
+      display: inline-block;
+      font-size: 30px;
+      text-align: center;
+      color: #aaa;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div id="home">
+      <div class="banner">
+        <div class="container">
+          <h1>
+            <a href="/">word转html助手</a>
+            <a style="float: right" href="https://github.com/zaaack/word2html">
+              <img src="https://img.shields.io/github/stars/zaaack/word2html?style=social" alt="">
+            </a>
+          </h1>
+        </div>
+      </div>
+      <div class="container">
+        <h3 style="width: 620px;">文件预览区</h3>
+        <input
+          id="document"
+          type="file"
+          onChange="if(this.value)insertTitle(this.value);"
+        />
+        <!--      # 水平布局区-->
+        <div class="row">
+          <div class="span8">
+            <div id="output" class="well2"></div>
+          </div>
+        </div>
+      </div>
+      <p></p>
+      <div class="container" style="margin-bottom: 50px;">
+        <h3>工具选项</h3>
+        <div class="display-flex">
+          <button onclick="download_text()">下载txt</button>
+          <button onclick="download_html()">下载html</button>
+          <button onclick="open_html()">剪藏或打印</button>
+        </div>
+      </div>
+    </div>
+    <div id="preview">
+      <div class="close" onclick="exitPreview()">X</div>
+      <article>
+
+      </article>
+    </div>
+    <script src="js/mammoth.browser.js"></script>
+    <script src="js/demo.js"></script>
+    <script>
+      var clipboard = new ClipboardJS('.btn')
+      var $=document.querySelector.bind(document)
+
+      clipboard.on('success', function (e) {
+        console.log(e)
+        alert('复制到剪辑板成功')
+      })
+
+      clipboard.on('error', function (e) {
+        console.log(e)
+        alert('复制到失败，换谷歌浏览器吧')
+      })
+      function getHtml() {
+        return document.getElementById('output').innerHTML
+      }
+      function download_text() {
+        let value = getHtml()
+        let file_name2 = window.file_name + '.txt'
+        downloadText(value, file_name2)
+      }
+      function download_html() {
+        let value = getHtml()
+        let file_name2 = window.file_name + '.html'
+        downloadText(value, file_name2)
+      }
+      function downloadText(data, filename2) {
+        let blob = new Blob([data], { type: 'text/html;charset=utf-8,' })
+        saveAs(blob, filename2)
+      }
+      function open_html() {
+        let html = `
+<h1>${window.file_name}</h1>
+${getHtml()}
+      `
+        $('#preview article').innerHTML = html
+        $('body').classList.add('preview-mode')
+      }
+      function exitPreview() {
+        $('body').classList.remove('preview-mode')
+      }
+    </script>
+    <script src="./js/upup.min.js"></script>
+    <script>
+      UpUp.start({
+        'content-url': 'index.html',
+        assets: [
+          './',
+          './index.html',
+          './css/style.css',
+          './img/favicon.png',
+          './js/clipboard.min.js',
+          './js/creat_html.js',
+          './js/demo.js',
+          './js/FileSaver.js',
+          './js/mammoth.browser.js',
+          './js/upup.min.js',
+        ],
+        'service-worker-url': '/word2html/upup.sw.min.js',
+      })
+    </script>
+  </body>
+</html>

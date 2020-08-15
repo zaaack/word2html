@@ -1,0 +1,74 @@
+html {
+    overflow-y: scroll;
+    font-family: helvetica, arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 720px;
+    max-height: 400px;
+    margin: 0 auto;
+}
+
+.banner {
+    overflow: auto;
+    margin-bottom: 20px;
+    background-color: #555;
+    color: #fff;
+}
+
+.banner a {
+    color: #fff;
+}
+
+.banner h1 {
+    font-size: 20px;
+    line-height: 2;
+    margin: 0.5em 0;
+}
+
+/*.span8, .span4 {*/
+/*    float: left;*/
+/*}*/
+
+.span8 {
+    width: 720px;
+}
+
+.span4 {
+    margin: 0 0 0 20px;
+}
+
+.well {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 1em;
+    min-height: 200px;
+    max-height: 400px;
+}
+.well2 {
+    border: 1px solid #ccc;
+    padding: 1em;
+    min-height: 200px;
+    max-height: 400px;
+}
+.output {
+    overflow: scroll;
+}
+.messages .warning {
+    color: #cc6600;
+}
+.display-flex {
+  display: flex;
+}
+
+.div-size {
+  border: 1px solid red;
+  width: 200px;
+  height: 120px;
+  margin: 10px;
+}
